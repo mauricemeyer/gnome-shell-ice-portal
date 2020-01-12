@@ -123,8 +123,9 @@ const ICEPortalIndicator = new Lang.Class({
     return (
       {
         HIGH: 'Good', // Verified on board
-        MIDDLE: 'Meh', // Verified on board
-        LOW: 'De facto offline', // TODO: Verify existance on board
+        MIDDLE: 'Okay', // Verified on board
+        LOW: 'Bad', // TODO: Verify existance on board
+        OFFLINE: 'Offline', // Verified on board 2020-01-12
       }[internetStatus] || '?'
     );
   },
