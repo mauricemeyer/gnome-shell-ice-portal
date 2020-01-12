@@ -89,8 +89,6 @@ const ICEPortalIndicator = new Lang.Class({
           return;
         }
 
-        const wifiString = this.wifiSymbol(resultStatus.internet);
-
         const nextStop = resultTrip.trip.stops.find(
           stop => stop.station.evaNr === resultTrip.trip.stopInfo.actualNext,
         );
@@ -104,29 +102,17 @@ const ICEPortalIndicator = new Lang.Class({
           const delayString = delay === '' ? '' : ` (${delay})`;
 
 
-          const text = `${resultTrip.trip.trainType} ${resultTrip.trip.vzn} → ${resultTrip.trip.stopInfo.finalStationName} | WLAN: ${wifiString} | ${resultStatus.speed} km/h | ${nextStop.station.name} 🕒 ${nextArrivalHour}:${nextArrivalMinute}${delayString} 🛤 ${nextStop.track.actual}`;
+          const text = `${resultTrip.trip.trainType} ${resultTrip.trip.vzn} → ${resultTrip.trip.stopInfo.finalStationName} | ${resultStatus.speed} km/h | ${nextStop.station.name} 🕒 ${nextArrivalHour}:${nextArrivalMinute}${delayString} 🛤 ${nextStop.track.actual}`;
           this.refreshUI(text);
 
         } else {
-          const text = `${resultTrip.trip.trainType} ${resultTrip.trip.vzn} → ${resultTrip.trip.stopInfo.finalStationName} | WLAN: ${wifiString} | ${resultStatus.speed} km/h`;
+          const text = `${resultTrip.trip.trainType} ${resultTrip.trip.vzn} → ${resultTrip.trip.stopInfo.finalStationName} | ${resultStatus.speed} km/h`;
 
           global.log('ICE Portal nextStop does not exist in trip.');
           this.refreshUI(text);
         }
 
       },
-    );
-  },
-
-  // switch-case variable assignment? Nah.
-  wifiSymbol(internetStatus) {
-    return (
-      {
-        HIGH: 'Good', // Verified on board
-        MIDDLE: 'Okay', // Verified on board
-        LOW: 'Bad', // TODO: Verify existance on board
-        OFFLINE: 'Offline', // Verified on board 2020-01-12
-      }[internetStatus] || '?'
     );
   },
 
